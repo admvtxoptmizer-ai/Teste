@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lava Jato Carragem - Seu Carro Brilhando</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+            background: #000;
+        }
+
+        header {
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 100, 255, 0.3);
+            border-bottom: 2px solid #0064ff;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 0 0 20px rgba(0, 100, 255, 0.8);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { text-shadow: 0 0 20px rgba(0, 100, 255, 0.8); }
+            50% { text-shadow: 0 0 30px rgba(0, 100, 255, 1); }
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #0064ff;
+            transform: translateY(-2px);
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(180deg, #000 0%, #001a4d 50%, #000 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            color: white;
+            padding: 20px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: 64px;
+            margin-bottom: 20px;
+            text-shadow: 0 4px 20px rgba(0, 100, 255, 0.5);
+            animation: slideIn 1s ease-out;
+            color: #0064ff;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(-100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .hero p {
+            font-size: 24px;
+            margin-bottom: 40px;
+            opacity: 0.95;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #0064ff 0%, #0040cc 100%);
+            color: white;
+            padding: 18px 50px;
+            font-size: 20px;
+            border: 2px solid #0064ff;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(0, 100, 255, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(0, 100, 255, 0.6);
+            background: linear-gradient(135deg, #0080ff 0%, #0064ff 100%);
+        }
+
+        .cta-button:active {
+            transform: translateY(-2px);
+        }
+
+        .floating-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .shape {
+            position: absolute;
+            background: rgba(0, 100, 255, 0.1);
+            border-radius: 50%;
+            animation: float 20s infinite;
+        }
+
+        .shape:nth-child(1) {
+            width: 100px;
+            height: 100px;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .shape:nth-child(2) {
+            width: 150px;
+            height: 150px;
+            right: 15%;
+            animation-delay: 2s;
+        }
+
+        .shape:nth-child(3) {
+            width: 80px;
+            height: 80px;
+            left: 60%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-100px) rotate(180deg); }
+        }
+
+        .services {
+            padding: 100px 20px;
+            background: #0a0a0a;
+        }
+
+        .services h2 {
+            text-align: center;
+            font-size: 48px;
+            margin-bottom: 60px;
+            color: #0064ff;
+            text-shadow: 0 0 20px rgba(0, 100, 255, 0.5);
+        }
+
+        .service-cards {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .card {
+            background: linear-gradient(135deg, #001a4d 0%, #000 100%);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            color: white;
+            transition: all 0.3s;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 2px solid #0064ff;
+        }
+
+        .card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 50px rgba(0, 100, 255, 0.4);
+            border-color: #0080ff;
+        }
+
+        .card-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .card h3 {
+            font-size: 28px;
+            margin-bottom: 15px;
+            color: #0064ff;
+        }
+
+        .card p {
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        .price-section {
+            padding: 100px 20px;
+            background: linear-gradient(180deg, #000 0%, #001a4d 50%, #000 100%);
+            text-align: center;
+            color: white;
+        }
+
+        .price-section h2 {
+            font-size: 48px;
+            color: #0064ff;
+            text-shadow: 0 0 20px rgba(0, 100, 255, 0.5);
+            margin-bottom: 20px;
+        }
+
+        .price-card {
+            max-width: 500px;
+            margin: 40px auto;
+            background: rgba(0, 26, 77, 0.5);
+            backdrop-filter: blur(10px);
+            padding: 60px;
+            border-radius: 30px;
+            border: 3px solid #0064ff;
+            transition: all 0.3s;
+            box-shadow: 0 10px 40px rgba(0, 100, 255, 0.3);
+        }
+
+        .price-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 60px rgba(0, 100, 255, 0.5);
+            border-color: #0080ff;
+        }
+
+        .price {
+            font-size: 72px;
+            font-weight: bold;
+            margin: 20px 0;
+            text-shadow: 0 4px 20px rgba(0, 100, 255, 0.5);
+            color: #0064ff;
+        }
+
+        .contact {
+            padding: 100px 20px;
+            background: #0a0a0a;
+            text-align: center;
+        }
+
+        .contact h2 {
+            font-size: 48px;
+            margin-bottom: 40px;
+            color: #0064ff;
+            text-shadow: 0 0 20px rgba(0, 100, 255, 0.5);
+        }
+
+        .whatsapp-btn {
+            background: #25D366;
+            color: white;
+            padding: 20px 60px;
+            font-size: 24px;
+            border: 2px solid #25D366;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.3);
+        }
+
+        .whatsapp-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(37, 211, 102, 0.5);
+            background: #20BA5A;
+        }
+
+        footer {
+            background: #000;
+            color: #0064ff;
+            text-align: center;
+            padding: 30px;
+            border-top: 2px solid #0064ff;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 36px; }
+            .hero p { font-size: 18px; }
+            .services h2, .contact h2, .price-section h2 { font-size: 32px; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">🚗 Lava Jato Carragem</div>
+            <ul class="nav-links">
+                <li><a href="#inicio">Início</a></li>
+                <li><a href="#servicos">Serviços</a></li>
+                <li><a href="#precos">Preços</a></li>
+                <li><a href="#contato">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero" id="inicio">
+        <div class="floating-shapes">
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+        </div>
+        <div class="hero-content">
+            <h1>Lava Jato Carragem</h1>
+            <p>Qualidade e profissionalismo para seu veículo</p>
+            <a href="#contato" class="cta-button">Fale Conosco</a>
+        </div>
+    </section>
+
+    <section class="services" id="servicos">
+        <h2>Nossos Serviços</h2>
+        <div class="service-cards">
+            <div class="card">
+                <div class="card-icon">💧</div>
+                <h3>Lavagem Completa</h3>
+                <p>Limpeza externa e interna com produtos especializados para deixar seu carro impecável</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">✨</div>
+                <h3>Enceramento</h3>
+                <p>Proteção e brilho duradouro para a pintura do seu veículo</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🎯</div>
+                <h3>Polimento</h3>
+                <p>Remoção de arranhões e recuperação do brilho original</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="price-section" id="precos">
+        <h2>Nosso Preço</h2>
+        <div class="price-card">
+            <h3>Lavagem Completa</h3>
+            <div class="price">R$ 130</div>
+            <p>Inclui lavagem externa, interna, aspiração e hidratação dos pneus</p>
+        </div>
+    </section>
+
+    <section class="contact" id="contato">
+        <h2>Entre em Contato</h2>
+        <p style="font-size: 20px; color: #999; margin-bottom: 30px;">Fale conosco pelo WhatsApp</p>
+        <a href="https://wa.me/5594918342367" class="whatsapp-btn" target="_blank">
+            <span style="font-size: 32px;">📱</span>
+            WhatsApp
+        </a>
+        <p style="margin-top: 20px; color: #0064ff; font-size: 18px; font-weight: bold;">+55 94 9183-4267</p>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Lava Jato Carragem - Todos os direitos reservados</p>
+    </footer>
+
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        const cards = document.querySelectorAll('.card');
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.animation = 'none';
+                setTimeout(() => {
+                    this.style.animation = '';
+                }, 10);
+            });
+        });
+
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.background = 'rgba(0, 0, 0, 0.98)';
+            } else {
+                header.style.background = 'rgba(0, 0, 0, 0.95)';
+            }
+        });
+    </script>
+</body>
+  </html>
